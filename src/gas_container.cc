@@ -3,11 +3,17 @@
 namespace idealgas {
 
 using glm::vec2;
-
+//size of container, starting point of particles
 GasContainer::GasContainer() {
+
 
 }
 
+void GasContainer::AddParticle(const Particle &particle) {
+    particles.push_back(particle);
+}
+
+// display particles
 void GasContainer::Display() const {
   // This function has a lot of magic numbers; be sure to design your code in a way that avoids this.
   ci::gl::color(ci::Color("orange"));
