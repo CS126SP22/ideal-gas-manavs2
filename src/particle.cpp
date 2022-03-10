@@ -31,8 +31,8 @@ namespace idealgas {
 
     bool Particle::CheckForCollision(const Particle & otherParticle) const {
         double distance = glm::distance(position_, otherParticle.position_);
-        double product = glm::dot(velocity_ - otherParticle.velocity_, position_ - otherParticle.position_);
-        if ((distance <= (radius_ + otherParticle.radius_)) && (product < 0)) {
+        double movement_towards = glm::dot(velocity_ - otherParticle.velocity_, position_ - otherParticle.position_);
+        if ((distance <= (radius_ + otherParticle.radius_)) && (movement_towards < 0)) {
             return true;
         }
 
