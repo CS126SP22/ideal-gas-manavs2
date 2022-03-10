@@ -7,13 +7,6 @@
 
 using glm::vec2;
 
-// Should I have a default constructor for particle, what should the default values for the object variables be?
-// Should radius be set to a default value or let it be passed in as a parameter in constructor to be set?
-// What constructors should I have? How should I construct a new Gas container (what are parameters and what should instance variables be for this class)
-// Should I start off with a certain number of particles in the gas container? Do i pass a particle vector into the parameter? Instructions unclear
-// How would I add more particles as time goes by? I have a method called AddParticles but where would I call it from?
-// What should I do for display method? How do I display the container and the particles?
-// Do I need to make changes to gas_simulation_app?
 namespace idealgas {
 
 /**
@@ -23,15 +16,22 @@ namespace idealgas {
 class GasContainer {
  public:
   /**
-   * TODO: Add more parameters to this constructor, and add documentation.
+   * Constructs a container with default width and height.
    */
   GasContainer();
-
+  /**
+   * Constructs a container with given width, height, and randomly generates particles.
+   */
   GasContainer(size_t width, size_t height, size_t numberOfParticles);
 
+  /**
+   * Constructs a container with given width, height, and particles.
+   */
   GasContainer(size_t width, size_t height, std::vector<Particle> particles);
 
-
+  /**
+   * Adds a particle to the container.
+   */
   void AddParticle(const Particle & particle);
 
   /**
@@ -45,6 +45,9 @@ class GasContainer {
    */
   void AdvanceOneFrame();
 
+  /**
+   * Checks if a given particle collides with any of the container walls and updates velocity accordingly.
+   */
   void WallCollisionCheck(Particle & particle);
 
   const size_t kTopLeftX = 100;
@@ -54,11 +57,6 @@ class GasContainer {
   const size_t kParticleRadii = 5;
 
  private:
-  /**
-   * This variable is just for the purposes of demonstrating how to make a shape move
-   * across a screen. Please remove it once you start working on your code.
-   */
-
   size_t width_;
   size_t height_;
   std::vector<Particle> particles_;

@@ -8,8 +8,6 @@ namespace idealgas {
 using glm::vec2;
 using ci::Rand;
 
-
-
 GasContainer::GasContainer() {
     width_ = kDefaultWidth;
     height_ = kDefaultHeight;

@@ -18,10 +18,12 @@ class IdealGasApp : public ci::app::App {
   void update() override;
 
   const int kWindowSize = 875;
-  const int kMargin = 100;
+  const size_t kWidth = 600;
+  const size_t kHeight = 400;
+  const size_t kNumberOfParticles = 50;
 
  private:
-  GasContainer container_ = GasContainer(600, 400, 50);
+  GasContainer container_ = GasContainer(kWidth, kHeight, kNumberOfParticles);
 
 };
 
