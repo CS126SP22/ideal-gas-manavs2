@@ -50,6 +50,8 @@ class GasContainer {
    */
   void WallCollisionCheck(Particle & particle);
 
+  std::vector<Particle> GetParticle();
+
   const size_t kTopLeftX = 100;
   const size_t kTopLeftY = 100;
   const size_t kDefaultWidth = 600;

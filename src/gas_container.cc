@@ -35,6 +35,10 @@ GasContainer::GasContainer(size_t width, size_t height, std::vector<Particle> pa
     particles_ = particles;
 }
 
+    std::vector<Particle> GasContainer::GetParticle() {
+    return particles_;
+}
+
 void GasContainer::AddParticle(const Particle &particle) {
     particles_.push_back(particle);
 }
@@ -51,10 +55,10 @@ void GasContainer::Display() const {
 }
 
 void GasContainer::WallCollisionCheck(Particle & particle) {
-    bool leftWallCollision = particle.GetPosition().x - particle.GetRadius() < kTopLeftX;
-    bool rightWallCollision = particle.GetPosition().x + particle.GetRadius() > kTopLeftX + width_;
-    bool bottomWallCollision = particle.GetPosition().y - particle.GetRadius() < kTopLeftY;
-    bool topWallCollision = particle.GetPosition().y + particle.GetRadius() > kTopLeftY + height_;
+    bool leftWallCollision = particle.GetPosition().x - particle.GetRadius() <= kTopLeftX;
+    bool rightWallCollision = particle.GetPosition().x + particle.GetRadius() >= kTopLeftX + width_;
+    bool bottomWallCollision = particle.GetPosition().y - particle.GetRadius() <= kTopLeftY;
+    bool topWallCollision = particle.GetPosition().y + particle.GetRadius() >= kTopLeftY + height_;
 
     if ((particle.GetVelocity().x < 0) && leftWallCollision) {
         vec2 particle_vel = particle.GetVelocity();
