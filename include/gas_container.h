@@ -2,6 +2,8 @@
 
 #include "cinder/gl/gl.h"
 #include "particle.h"
+#include "cinder/Rand.h"
+#include <math.h>
 
 using glm::vec2;
 
@@ -23,9 +25,12 @@ class GasContainer {
   /**
    * TODO: Add more parameters to this constructor, and add documentation.
    */
-
-  // vector of particles, center of container should be a 2d vector. Here i can see when particle hits wall
   GasContainer();
+
+  GasContainer(size_t width, size_t height, size_t numberOfParticles);
+
+  GasContainer(size_t width, size_t height, std::vector<Particle> particles);
+
 
   void AddParticle(const Particle & particle);
 
@@ -40,13 +45,23 @@ class GasContainer {
    */
   void AdvanceOneFrame();
 
+  void WallCollisionCheck(Particle & particle);
+
+  const size_t kTopLeftX = 100;
+  const size_t kTopLeftY = 100;
+  const size_t kDefaultWidth = 600;
+  const size_t kDefaultHeight = 400;
+  const size_t kParticleRadii = 5;
+
  private:
   /**
    * This variable is just for the purposes of demonstrating how to make a shape move
    * across a screen. Please remove it once you start working on your code.
    */
-  int dummy_variable_ = 0;
-  std::vector<Particle> particles;
+
+  size_t width_;
+  size_t height_;
+  std::vector<Particle> particles_;
 };
 
 }  // namespace idealgas

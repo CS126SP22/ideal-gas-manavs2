@@ -14,8 +14,10 @@ namespace idealgas {
         void AdvancePosition();
         vec2 GetPosition() const;
         vec2 GetVelocity() const;
+        double GetRadius() const;
         void SetVelocity(const vec2 & velocity);
         bool CheckForCollision(const Particle & otherParticle) const;
+        void Draw() const;
 
         void UpdateVelocityAfterCollusion(Particle & otherParticle);
 
