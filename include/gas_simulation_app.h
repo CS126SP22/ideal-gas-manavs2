@@ -22,8 +22,14 @@ class IdealGasApp : public ci::app::App {
   const size_t kHeight = 400;
   const size_t kNumberOfParticles = 50;
 
+  const std::vector<Particle> kTypeParticles = std::vector<Particle>({
+      Particle("Small", vec2(0, 0), vec2(0, 0), 2, 4, ci::Color ("green")),
+      Particle("Medium", vec2(0, 0), vec2(0, 0), 8, 5, ci::Color ("red")),
+      Particle("Large", vec2(0, 0), vec2(0, 0), 20, 10, ci::Color ("blue")),
+                                                             });
+
  private:
-  GasContainer container_ = GasContainer(kWidth, kHeight, kNumberOfParticles);
+  GasContainer container_ = GasContainer(kWidth, kHeight, kNumberOfParticles, kTypeParticles);
 
 };
 

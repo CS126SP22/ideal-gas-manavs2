@@ -4,6 +4,17 @@ namespace idealgas {
         position_ = position;
         velocity_ = velocity;
         radius_ = radius;
+        mass_ = 1.0;
+    }
+
+    Particle::Particle(std::string type, const vec2 &position, const vec2 &velocity, const double mass, const double radius,
+                       const ci::Color color) {
+        type_ = type;
+        position_ = position;
+        velocity_ = velocity;
+        mass_ = mass;
+        radius_ = radius;
+        color_ = color;
     }
 
     void Particle::AdvancePosition() {
@@ -25,6 +36,14 @@ namespace idealgas {
         velocity_ = velocity;
     }
 
+    void Particle::SetPosition(const vec2 &position) {
+        position_ = position;
+    }
+
+    ci::Color Particle::GetColor() const {
+        return color_;
+    }
+
     void Particle::Draw() const {
         ci::gl::drawSolidCircle(position_, radius_);
     }
@@ -44,13 +63,18 @@ namespace idealgas {
         vec2 x2 = otherParticle.position_;
         vec2 v1 = velocity_;
         vec2 v2 = otherParticle.velocity_;
+        float m1 = mass_;
+        float m2 = otherParticle.mass_;
 
-        velocity_ = v1 - (glm::dot((v1 - v2), (x1 - x2)) / (length(x1 - x2) * length(x1 - x2))) * (x1 - x2);
+        velocity_ = v1 - (2 * m2 /(m1+m2) * (glm::dot((v1 - v2), (x1 - x2)) / (length(x1 - x2) * length(x1 - x2)))) * (x1 - x2);
 
-        otherParticle.velocity_ =  v2 - (glm::dot((v2 - v1), (x2 - x1)) / (length(x2 - x1)
-                                                                                      * length(x2 - x1))) * (x2 - x1);
+        otherParticle.velocity_ =  v2 - (2 * m1 /(m1+m2) * (glm::dot((v2 - v1), (x2 - x1)) / (length(x2 - x1)
+                                                                                      * length(x2 - x1)))) * (x2 - x1);
     }
 
+    double Particle::GetMass() const {
+        return mass_;
+    }
 
 
 }

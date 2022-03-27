@@ -20,9 +20,9 @@ class GasContainer {
    */
   GasContainer();
   /**
-   * Constructs a container with given width, height, and randomly generates particles.
+   * Constructs a container with given width, height, and randomly generates particles based on type.
    */
-  GasContainer(size_t width, size_t height, size_t numberOfParticles);
+  GasContainer(size_t width, size_t height, size_t numberOfParticles, std::vector <Particle> types);
 
   /**
    * Constructs a container with given width, height, and particles.

@@ -13,17 +13,20 @@ GasContainer::GasContainer() {
     height_ = kDefaultHeight;
 }
 
-GasContainer::GasContainer(size_t width, size_t height, size_t numberOfParticles) {
+
+
+GasContainer::GasContainer(size_t width, size_t height, size_t numberOfParticles, std::vector<Particle> types) {
     width_ = width;
     height_ = height;
 
     for (size_t i = 0; i <numberOfParticles; i++) {
-        Particle particle = Particle(vec2(Rand::randFloat(kTopLeftX + kParticleRadii + 1,
-                                                          (width_ + kTopLeftX) - kParticleRadii),
-                                          Rand::randFloat(kTopLeftY + kParticleRadii + 1,
-                                                          (height_ + kTopLeftY) - kParticleRadii)),
-                                     vec2(Rand::randFloat(kParticleRadii * -1.0, kParticleRadii),
-                                          Rand::randFloat(kParticleRadii * -1.0, kParticleRadii)), kParticleRadii);
+        Particle particle = types[i % types.size()];
+        particle.SetPosition(vec2(Rand::randFloat(kTopLeftX + particle.GetRadius() + 1,
+                                                  (width_ + kTopLeftX) - particle.GetRadius()),
+                                  Rand::randFloat(kTopLeftY + particle.GetRadius() + 1,
+                                                  (height_ + kTopLeftY) - particle.GetRadius())));
+        particle.SetVelocity(vec2(Rand::randFloat(particle.GetRadius() * -1.0, particle.GetRadius()),
+                                  Rand::randFloat(particle.GetRadius() * -1.0, particle.GetRadius())));
 
         particles_.push_back(particle);
     }
@@ -49,7 +52,7 @@ void GasContainer::Display() const {
   ci::gl::drawStrokedRect(ci::Rectf(vec2(kTopLeftX, kTopLeftY), vec2(kTopLeftX + width_, kTopLeftY + height_)));
 
   for (size_t i = 0; i < particles_.size(); ++i) {
-      ci::gl::color(ci::Color ("yellow"));
+      ci::gl::color(particles_[i].GetColor());
       ci::gl::drawSolidCircle(particles_[i].GetPosition(), particles_[i].GetRadius());
   }
 }
