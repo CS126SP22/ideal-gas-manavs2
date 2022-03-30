@@ -14,17 +14,18 @@ GasContainer::GasContainer() {
 }
 
 
-
-GasContainer::GasContainer(size_t width, size_t height, size_t numberOfParticles, std::vector<Particle> types) {
+GasContainer::GasContainer(size_t width, size_t height, size_t numberOfParticles, std::vector<Particle> particle_types) {
     width_ = width;
     height_ = height;
 
-    for (size_t i = 0; i <numberOfParticles; i++) {
-        Particle particle = types[i % types.size()];
+    for (size_t i = 0; i < numberOfParticles; i++) {
+        Particle particle = particle_types[i % particle_types.size()];
+
         particle.SetPosition(vec2(Rand::randFloat(kTopLeftX + particle.GetRadius() + 1,
                                                   (width_ + kTopLeftX) - particle.GetRadius()),
                                   Rand::randFloat(kTopLeftY + particle.GetRadius() + 1,
                                                   (height_ + kTopLeftY) - particle.GetRadius())));
+
         particle.SetVelocity(vec2(Rand::randFloat(particle.GetRadius() * -1.0, particle.GetRadius()),
                                   Rand::randFloat(particle.GetRadius() * -1.0, particle.GetRadius())));
 
@@ -38,7 +39,7 @@ GasContainer::GasContainer(size_t width, size_t height, std::vector<Particle> pa
     particles_ = particles;
 }
 
-    std::vector<Particle> GasContainer::GetParticle() {
+std::vector<Particle> GasContainer::GetParticle() {
     return particles_;
 }
 
@@ -64,24 +65,16 @@ void GasContainer::WallCollisionCheck(Particle & particle) {
     bool topWallCollision = particle.GetPosition().y + particle.GetRadius() >= kTopLeftY + height_;
 
     if ((particle.GetVelocity().x < 0) && leftWallCollision) {
-        vec2 particle_vel = particle.GetVelocity();
-        particle_vel.x *= -1;
-        particle.SetVelocity(particle_vel);
+        particle.InvertXVelocity();
     }
     if ((particle.GetVelocity().x > 0) && rightWallCollision) {
-        vec2 particle_vel = particle.GetVelocity();
-        particle_vel.x *= -1;
-        particle.SetVelocity(particle_vel);
+        particle.InvertXVelocity();
     }
     if ((particle.GetVelocity().y < 0) && bottomWallCollision) {
-        vec2 particle_vel = particle.GetVelocity();
-        particle_vel.y *= -1;
-        particle.SetVelocity(particle_vel);
+        particle.InvertYVelocity();
     }
     if ((particle.GetVelocity().y > 0) && topWallCollision) {
-        vec2 particle_vel = particle.GetVelocity();
-        particle_vel.y *= -1;
-        particle.SetVelocity(particle_vel);
+       particle.InvertYVelocity();
     }
 }
 

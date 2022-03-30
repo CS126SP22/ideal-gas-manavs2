@@ -22,10 +22,10 @@ class GasContainer {
   /**
    * Constructs a container with given width, height, and randomly generates particles based on type.
    */
-  GasContainer(size_t width, size_t height, size_t numberOfParticles, std::vector <Particle> types);
+  GasContainer(size_t width, size_t height, size_t numberOfParticles, std::vector<Particle> particle_types);
 
   /**
-   * Constructs a container with given width, height, and particles.
+   * Constructs a container with given width, height, and randomly generates particles based on type.
    */
   GasContainer(size_t width, size_t height, std::vector<Particle> particles);
 
@@ -52,10 +52,10 @@ class GasContainer {
 
   std::vector<Particle> GetParticle();
 
-  const size_t kTopLeftX = 100;
-  const size_t kTopLeftY = 100;
-  const size_t kDefaultWidth = 600;
-  const size_t kDefaultHeight = 400;
+  const size_t kTopLeftX = 10;
+  const size_t kTopLeftY = 10;
+  const size_t kDefaultWidth = 300;
+  const size_t kDefaultHeight = 200;
   const size_t kParticleRadii = 5;
 
  private:

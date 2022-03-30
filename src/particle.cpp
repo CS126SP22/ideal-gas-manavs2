@@ -48,6 +48,16 @@ namespace idealgas {
         ci::gl::drawSolidCircle(position_, radius_);
     }
 
+    void Particle::InvertXVelocity() {
+        velocity_.x *= -1;
+    }
+
+    void Particle::InvertYVelocity() {
+        velocity_.y *= -1;
+    }
+
+
+
     bool Particle::CheckForCollision(const Particle & otherParticle) const {
         double distance = glm::distance(position_, otherParticle.position_);
         double movement_towards = glm::dot(velocity_ - otherParticle.velocity_, position_ - otherParticle.position_);

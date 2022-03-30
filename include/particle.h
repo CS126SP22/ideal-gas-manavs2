@@ -25,11 +25,12 @@ namespace idealgas {
         double GetRadius() const;
         ci::Color GetColor() const;
         double GetMass() const;
-
         void SetPosition(const vec2 & position);
-
-
         void SetVelocity(const vec2 & velocity);
+
+        void InvertXVelocity();
+        void InvertYVelocity();
+
         /**
          * Checks if a particle collides another given particle
          */
@@ -39,6 +40,7 @@ namespace idealgas {
          * Updates the velocity of the two particles that have collided
          */
         void UpdateVelocityAfterCollusion(Particle & otherParticle);
+
 
     private:
         std::string type_;
